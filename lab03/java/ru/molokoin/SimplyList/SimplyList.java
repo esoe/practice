@@ -42,10 +42,24 @@ public class SimplyList {
      * TODO вдруг список пустой
      * TODO вдруг список содержит только один элемент
      */
-    public Integer executeFirst(){
+    public Integer executeHead(){
         Integer tmp = null;
         tmp = head.data;
         head = head.next;
+        return tmp;
+    }
+    /**
+     * Удаление последнего элемента списка
+     * @return
+     */
+    public Integer executeTail(){
+        Integer tmp = tail.data;//готовы писать данные удаляемого элемента
+        Node bufNode = head;
+        //у предпоследнего элемента удаляем ссылку на tail
+        while (bufNode.next != tail){
+            bufNode = bufNode.next;
+        }
+        bufNode.next = null;
         return tmp;
     }
     /**
@@ -79,6 +93,43 @@ public class SimplyList {
         }else{
             System.out.println(">>> " + node.data);
         }
+    }
+    public void deleteNodeByValue(Integer value){
+        //обработка случая, когда первый элемент списка подлежит удалению
+        while (head.data == value){
+            head = head.next;
+        }
+        //первый элемент списка точно не подлежит удалению
+        Node buf = new Node();
+        buf = head;
+        while(buf.next != null){
+            if (buf.next.data != value){
+                buf = buf.next;
+            }else{
+                buf.next = buf.next.next;
+            }
+        }
+    }
+    public void math(UseMath use, Integer value){
+        switch (use){
+            case INCREASE : {
+                Node buf = new Node();
+                buf = head;
+                buf.data = buf.data + value;
+                System.out.println("buf.data" + buf.data);
+                while (buf.next != null){
+                    buf.next.data = buf.next.data + value;
+                    System.out.println("buf.data" + buf.next.data);
+                    buf = buf.next;
+                }
+                break;
+            }
+            case DECREASE : {
+
+            }
+            
+        }
+        
     }
 
     /**
@@ -118,6 +169,27 @@ public class SimplyList {
         System.out.print("tail ");
         list.printNode(list.tail);
 
+        //удаление первого элемента списка
+        System.out.println("Удаление первого элемента списка: " + list.executeHead());
+        System.out.println("Итоговый список ... " );
+        list.printAll();
+
+        //удаление последнего элемента списка
+        System.out.println("Удаление последнего элемента списка: " + list.executeTail());
+        System.out.println("Итоговый список ... " );
+        list.printAll();
+        //
+        int i = 47;
+        System.out.println("Удаление из списка полей со значением: " + i );
+        list.deleteNodeByValue(i);
+        System.out.println("Итоговый список ... " );
+        list.printAll();
+
+        //действия над всеми элементами списка
+        System.out.println("действия над всеми элементами списка ... " + UseMath.INCREASE );
+        list.math(UseMath.INCREASE, 20);
+        System.out.println("Итоговый список ... " );
+        list.printAll();
 
     }
 }
