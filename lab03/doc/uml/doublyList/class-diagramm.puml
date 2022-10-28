@@ -1,0 +1,28 @@
+@startuml classDiagramm-DoublyList
+class Node{
+    int data
+    Node forvard
+    Node backward
+}
+class DoublyList{
+    Node head
+    Node tail
+
+    boolean isEmpty()
+    void addFirst()
+    void addLast()
+    void printNode()
+    void printAll()
+    Node getHead()
+    Node getTail()
+    void setHead()
+    void setTail()
+    Node executeFirst()
+    'TODO
+    Node executeLast()
+    boolean isContain()
+    void deleteByValue()    
+}
+DoublyList *--  Node : "Список (list) \n состоит из узлов (node)"
+
+@enduml
