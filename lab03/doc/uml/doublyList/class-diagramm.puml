@@ -1,13 +1,18 @@
 @startuml classDiagramm-DoublyList
-class Node{
+title DoublyList class diagram
+
+class SimplyNode{
+    int data
+    Node forvard
+}
+class DoublyNode{
     int data
     Node forvard
     Node backward
 }
-class DoublyList{
+class SimplyList{
     Node head
     Node tail
-
     boolean isEmpty()
     void addFirst()
     void addLast()
@@ -18,11 +23,30 @@ class DoublyList{
     void setHead()
     void setTail()
     Node executeFirst()
-    'TODO
     Node executeLast()
     boolean isContain()
-    void deleteByValue()    
+    void deleteByValue()
 }
-DoublyList *--  Node : "Список (list) \n состоит из узлов (node)"
-
+class DoublyList{
+    Node head
+    Node tail
+    boolean isEmpty()
+    void addFirst()
+    void addLast()
+    void printNode()
+    void printAll()
+    Node getHead()
+    Node getTail()
+    void setHead()
+    void setTail()
+    Node executeFirst()
+    Node executeLast()
+    boolean isContain()
+    'TODO
+    void deleteByValue()
+}
+DoublyList *--  DoublyNode : "Список (list) \n состоит из узлов (node)"
+DoublyList <--  SimplyList : "Наследуется, \n переопределяет часть методов"
+DoublyNode <-- SimplyNode : "Наследуется"
+SimplyList *-- SimplyNode : "Список (list) \n состоит из узлов (node)"
 @enduml

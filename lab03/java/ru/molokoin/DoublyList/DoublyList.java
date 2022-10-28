@@ -99,6 +99,73 @@ public class DoublyList {
         }
         return executed;
     }
+    /**
+     * извлечение данных с удалением последнего элемента списка
+     * @return
+     */
+    public Integer executeLast(){
+        Integer executed = null;
+        if (isEmpty()){
+            return executed;
+        }
+        else{
+            try {
+                executed = getTail().data;
+                setTail(getTail().backvard);
+                getTail().forvard = null;
+            }catch (NullPointerException e){
+                System.out.println("Обнаружена исключительная ситуация: " + e);
+            }
+        }
+        return executed;
+    }
+    /**
+     * Проверяем наличие в списке заданного в параметре метода значения
+     * @param value
+     * @return
+     */
+    public boolean isContain(Integer value){
+        boolean isContain = false;
+        if (isEmpty()){
+            isContain = false;
+            return isContain;
+        }
+        else{
+            Node tmp = getHead();
+            while (tmp.forvard != null){
+                if(tmp.data == value){
+                    isContain = true;
+                }
+                tmp = tmp.forvard;
+            }
+            if (getTail().data == value){
+                isContain = true;
+            }
+        }
+        return isContain;
+    }
+    public void deleteByValue(Integer value){
+        if (isContain(value)){
+            Node tmp = getHead();
+            while (tmp.data == value){
+                executeFirst();
+                tmp = getHead();
+            }
+            tmp = getTail();
+            while(tmp.data == value){
+                executeLast();
+                tmp = getTail();
+            }
+            tmp = getHead();
+            while (tmp.forvard != null){
+                if (tmp.forvard.data == value){
+                    //tmp.forvard = tmp.forvard.forvard;
+                }
+                tmp = tmp.forvard;
+                
+            }
+        }
+    }
 
     public Node getHead() throws NullPointerException {
         return head;
@@ -139,6 +206,10 @@ public class DoublyList {
         //добавляем данные в конец списка
         System.out.println("добавляем данные в конец списка ...");
         list.addLast(27);
+        list.addLast(32);
+        list.addLast(34);
+        list.addLast(62);
+        list.addLast(117);
         
         //проверяем пустой ли список
         System.out.println("проверяем пустой ли список ...");
@@ -153,5 +224,20 @@ public class DoublyList {
         //выводим в консоль данные списка
         System.out.println("выводим в консоль данные списка ...");
         list.printAll();
+
+        //удаляем последний элемент списка
+        System.out.println("удаляем последний элемент списка ..." + list.executeLast());
+        //выводим в консоль данные списка
+        System.out.println("выводим в консоль данные списка ...");
+        list.printAll();
+
+        //проверяем наличие значения в списке
+        int i = 23;
+        System.out.println("Проверяем наличие значения в списке ... " + i);
+        System.out.println("результат проверки: " + list.isContain(i));
+        i = 0;
+        System.out.println("Проверяем наличие значения в списке ... " + i);
+        System.out.println("результат проверки: " + list.isContain(i));
+
     }
 }
