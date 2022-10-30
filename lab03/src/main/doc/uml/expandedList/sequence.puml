@@ -6,6 +6,8 @@ data --> temp : second value
 temp --> head : second value
 head.forvard --> tail : link
 head --> second : first value
+head.forvard --> second : link
+
 data --> temp : therd value
 temp --> head : therd value
 head --> therd : therd value
