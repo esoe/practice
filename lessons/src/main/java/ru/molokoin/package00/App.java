@@ -1,4 +1,4 @@
-package ru.molokoin;
+package ru.molokoin.package00;
 
 public class App {
     public static void main(String[] args) {
