@@ -1,5 +1,8 @@
 package ru.molokoin.logic;
 
+/**
+ * Интерфейс булевого массива
+ */
 public interface CollectionFace {
     public static int size = 1024;
 
