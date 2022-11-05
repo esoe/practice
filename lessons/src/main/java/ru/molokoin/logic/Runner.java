@@ -71,14 +71,17 @@ public class Runner {
         //проверка invertByIndex(int index)
         {
             System.out.println("проверка invertByIndex(int index) ...");
+            System.out.println("--------------------------------------------");
         }
 
+        //вывод коллекции в консоль
+        {
+            System.out.println("Выводим коллекцию в консоль ...");
+            System.out.println();
+            System.out.println(bc.toString());
+            System.out.println();
+        }
         
-        
-        System.out.println("Выводим коллекцию в консоль ...");
-        System.out.println();
-        System.out.println(bc.toString());
-        System.out.println();
         System.out.println("=====Работа с целочисленным массивом=====");
         System.out.println("Создаем новую коллекцию ...");
         IntCollection ic = new IntCollection();
