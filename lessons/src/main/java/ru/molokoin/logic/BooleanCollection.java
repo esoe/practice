@@ -71,17 +71,31 @@ public class BooleanCollection implements CollectionFace{
                 msg = msg + "Метод setValueByIndex(int index, int value) ";
                 msg = msg + "для поля (index) " + index + ", для значения (value): " + value + " - не выполнен ...";
                 throw new IllegalArgumentException(msg);
-                
         }
     }
 
     @Override
-    public void invertByIndex(int index) {
-        if (collection[index] == true){
-            collection[index] = false;
+    public void invertByIndex(int index) throws ArrayIndexOutOfBoundsException {
+        Boolean bool = (index < 0) || (index >= size);
+        if (bool){
+            String msg = "";
+            msg = msg + "Превышены границы массива, значение (index) должно быть:\n" +
+                        "- меньше 1024 ..." + "\n" +
+                        "- больше нуля ..." + "\n" +
+                        "метод invertByIndex(int index)" + " к полю с индексом " + index + " не применен ...";
+            throw new ArrayIndexOutOfBoundsException(msg);
         }else{
-            collection[index] = true;
+            /**
+             * проверять collection[index] на null не нужно,
+             * все значения инициированы в конструкторе класса
+             */
+            if (collection[index] == true){
+                collection[index] = false;
+            }else{
+                collection[index] = true;
+            }
         }
+        
     }
 
     @Override
