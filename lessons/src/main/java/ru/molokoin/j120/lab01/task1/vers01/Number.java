@@ -7,7 +7,16 @@ public class Number {
         setNumber(number);
     }
     public static Number ofString(String numberString){
+        char[] c = numberString.toCharArray();
+        int[] number = new int[c.length - 2];//убрали тире из номера (две штуки)
+        if(number.length == 6){
+            //
+        }else{
+            //
+        }
         
+
+
         return null;
     }
 
