@@ -1,0 +1,54 @@
+@startuml
+Title "PhoneCatalog class-diagram"
+left to right direction
+interface IPart {
+    Regex regex
+    int[] getValue()
+    void setValue(int[] value)
+    int[] ofString (String string)
+    int[] ofIntArray (int[])
+    String toString()
+    void print()
+}
+class Code{
+    int[] value
+    Code()
+}
+class Number{
+    int[] value
+    Number()
+}
+Code -> IPart
+Number -> IPart
+
+interface IPhone{
+    void setCode(Code code)
+    void seNumber(Number number)
+    Code getCode()
+    Number getNumber()
+    Phone ofString(String string)
+    String toString(Phone phone)
+    int[] toIntArray(Phone phone)
+    boolean equals(Phone phone)
+}
+class Phone{
+    Code code
+    Number number
+    Phone()
+}
+
+Phone -> IPhone
+Phone *- Number
+Phone *- Code
+
+interface ICat{
+    void add(Phone phone)
+    void delete(Phone phone)
+    boolean isExist(Phone phone)
+}
+class Cat{}
+Cat -> ICat
+Phone -* Cat
+
+
+@enduml
