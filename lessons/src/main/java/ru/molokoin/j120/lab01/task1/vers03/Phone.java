@@ -1,6 +1,7 @@
 package ru.molokoin.j120.lab01.task1.vers03;
 
 import java.util.regex.Pattern;
+import java.util.Objects;
 
 public class Phone{
     private Code code;
@@ -44,7 +45,12 @@ public class Phone{
         return number;
     }
     
-    public Boolean equals(Phone phone){
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if(!(o instanceof Phone)) return false;
+        Phone phone = (Phone) o;
+        if ((this.code.getValue() == phone.code.getValue())&&(this.number.getValue() == phone.number.getValue())) return true;
         return false;
     }
     public static int[] toIntArray(Phone phone){
@@ -61,8 +67,21 @@ public class Phone{
     }
     public void print(){
         System.out.println(toString());
-
     }
+    /**
+     * TODO посмотреть реализацию
+     * 
+     */
+    public int hashCode(){
+        return Objects.hash(code, number);
+    }
+    /**
+     * Всегда переопределяем методы<p>
+     * equals()<p>
+     * hashCode()<p>
+     * toString()<p>
+     * @param args
+     */
     public static void main(String[] args) {
         Phone phone = new Phone("(812)337-33-13");
         phone.toString();
