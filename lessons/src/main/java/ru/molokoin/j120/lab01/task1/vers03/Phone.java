@@ -1,5 +1,7 @@
 package ru.molokoin.j120.lab01.task1.vers03;
 
+import java.util.regex.Pattern;
+
 public class Phone{
     private Code code;
     private Number number;
@@ -9,7 +11,9 @@ public class Phone{
         setNumber(number);
     }
     public Phone(String stringPhone){
-        String[] phone = stringPhone.split(")");
+        String[] phone = stringPhone.split(Pattern.quote(")"));
+        System.out.println("Part one: " + phone[0]);
+        System.out.println("Part two: " + phone[1]);
         code = new Code(phone[0]);
         setCode(code);
         number = new Number(phone[1]);
@@ -40,13 +44,29 @@ public class Phone{
         return number;
     }
     
-    public Boolean equals(Phone phone) {
-        // TODO Auto-generated method stub
+    public Boolean equals(Phone phone){
+        return false;
+    }
+    public static int[] toIntArray(Phone phone){
         return null;
+    }
+    public String toString(){
+        return (getCode().toString() + getNumber().toString());
+    }
+    public static Phone ofString(String stringPhone){
+        String[] phone = stringPhone.split(Pattern.quote(")"));
+        Code code = new Code(phone[0]);
+        Number number = new Number(phone[1]);
+        return new Phone(code, number);
+    }
+    public void print(){
+        System.out.println(toString());
+
     }
     public static void main(String[] args) {
         Phone phone = new Phone("(812)337-33-13");
-        IPhone.toString(phone);
+        phone.toString();
+        phone.print();
     }
     
 }
