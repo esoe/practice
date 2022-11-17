@@ -154,7 +154,15 @@ public class Phone{
      * возможно, для использования в качестве ключевого поля параметризованного списка
      */
     public int hashCode(){
-        return Objects.hash(code, number);
+        String s = Arrays.toString(Phone.toIntArray(this)).replaceAll(Regex.NON_DIGIT.get(), "");
+        int hash = 0;
+        try {
+            hash =  Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            System.out.println("Ошибка:" + e.getMessage());
+            hash = 0;
+        }
+        return hash;
     }
     /**
      * На будущее: всегда переопределяем методы:<p>
@@ -170,6 +178,7 @@ public class Phone{
         System.out.println("Тлефон в пользовательском виде: ");
         phone01.toString();
         phone01.print();
+        System.out.println("hash-01 :" + phone01.hashCode());
         System.out.println("-------------------------------");
         Phone phone02 = new Phone("(8123)37-33-13");
         System.out.println("Code array: " + Arrays.toString(phone02.getCode().getValue()));
@@ -177,6 +186,7 @@ public class Phone{
         System.out.println("Тлефон в пользовательском виде: ");
         phone02.toString();
         phone02.print();
+        System.out.println("hash-02 :" + phone02.hashCode());
         System.out.println("-------------------------------");
         System.out.println("-------------------------------");
         System.out.println("Проверка взаимодействия класса с Асоциироанным массивом \"HashMap\"");
@@ -185,20 +195,23 @@ public class Phone{
         System.out.println("Исходные номера телефонов: ");
         phone01 = new Phone("(812)337-33-13");
         //phone02 = new Phone("(8123)12-34-45");
-        Phone phone03 = new Phone("(999)98-87-76");
+        Phone phone03 = new Phone("(999)998-87-76");
+        Phone phone04 = new Phone("(9999)98-87-76");
         phone01.print();
         phone02.print();
         phone03.print();
+        phone04.print();
         System.out.println("-------------------------------");
 
         //создаем и заполняем асоциированный массив
         //не работает проверка уникальности ... проверяет хешкод int[], а не Phone
         //метод equals надо доработать, чтобы в нем вызывался массив, для сравнения.
         System.out.println("Создаем и заполняем асоциированный массив ...");
-        HashMap<int[], Phone> listMap = new HashMap<>();
-        listMap.put(Phone.toIntArray(phone01), phone01);
-        listMap.put(Phone.toIntArray(phone02), phone02);
-        listMap.put(Phone.toIntArray(phone03), phone03);
+        HashMap<Integer, Phone> listMap = new HashMap<>();
+        listMap.put(phone01.hashCode(), phone01);
+        listMap.put(phone02.hashCode(), phone02);
+        listMap.put(phone03.hashCode(), phone03);
+        listMap.put(phone04.hashCode(), phone04);
         // выводим в консоль даные массива
         System.out.println("Выводим в консоль даные асоциированного массива ...");
         System.out.println(listMap);
@@ -210,9 +223,14 @@ public class Phone{
         listSet.add(phone01);
         listSet.add(phone02);
         listSet.add(phone03);
+        listSet.add(phone04);
         // выводим в консоль даные множества
         System.out.println("Выводим в консоль даные множества");
         System.out.println(listSet);
         System.out.println("-------------------------------");
+
+        System.out.println("phone01.equals(phone02)" + phone01.equals(phone02));
+        System.out.println("phone01.equals(phone03)" + phone01.equals(phone03));
+
     }
 }
