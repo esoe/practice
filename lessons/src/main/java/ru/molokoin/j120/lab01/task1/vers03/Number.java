@@ -2,9 +2,22 @@ package ru.molokoin.j120.lab01.task1.vers03;
 
 import java.util.Arrays;
 
+/**
+ * Класс, хранящий данные о секции number полного номера телефона,
+ * реализует интерфейс IPart, прдусматривающий основные методы,<p>
+ * для работы с секциями полного номера телефона
+ */
 public class Number implements IPart{
-    int[] value;
+    /**
+     * Поле хранит набор цифр, составляющих секцию number полного номера телефона
+     */
+    private int[] value;
 
+    /**
+     * Основной конструктор класса, создает объекты<p>
+     * на основании строкового представления секции number полного номера телефона
+     * @param stringValue
+     */
     Number(String stringValue){
         setValue(IPart.ofString(stringValue));
     }
@@ -19,6 +32,9 @@ public class Number implements IPart{
         this.value = value;
     }
 
+    /**
+     * выводит в консоль строковое представление секции number
+     */
     @Override
     public void print() {
         System.out.println(toString());
@@ -27,7 +43,9 @@ public class Number implements IPart{
     /**
      * Преобразование int[] в строку<p>
      * с добавлением "-" перед последними двумя парами цифр<p>
-     * Пример: 000-00-00
+     * Примеры:<p>
+     * 000-00-00<p>
+     * 00-00-00
      */
     @Override
     public String toString(){
@@ -39,6 +57,10 @@ public class Number implements IPart{
         String result = first + "-" + second + "-" + therd;
         return result;
     }
+    /**
+     * Метод создан, для проверки работоспособности класса
+     * @param args
+     */
     public static void main(String[] args) {
         Number number = new Number("123-34-45");
         System.out.println(number.toString());

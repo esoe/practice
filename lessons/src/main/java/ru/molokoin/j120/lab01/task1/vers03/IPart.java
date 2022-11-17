@@ -1,5 +1,9 @@
 package ru.molokoin.j120.lab01.task1.vers03;
 
+/**
+ * интерфейс IPart, прдусматривает основные методы,<p>
+ * для работы с секциями полного номера телефона
+ */
 public interface IPart {
     public abstract int[] getValue();
     public abstract void setValue(int[] value);

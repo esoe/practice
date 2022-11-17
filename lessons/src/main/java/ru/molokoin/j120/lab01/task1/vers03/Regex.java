@@ -1,5 +1,11 @@
 package ru.molokoin.j120.lab01.task1.vers03;
 
+/**
+ * Перечисление содержит основные константные регулярные выражения,<p>
+ * для применения с классами:<p>
+ * - java.util.regex.Pattern<p>
+ * - java.lang.String
+ */
 public enum Regex {
     /**
      * DIGIT.get()<p>
@@ -14,12 +20,24 @@ public enum Regex {
      */
     NON_DIGIT("[^0-9]");
 
-    private String code;
-    Regex(String code){
-        this.code = code;
+    /**
+     * Поле, хранящее строковое представление регулярного выражения
+     */
+    private String regex;
+    /**
+     * Основной конструктор перечисления регулярных выражений,<p>
+     * сопоставляет регулярное выражение с константным наименованием
+     * @param regex
+     */
+    Regex(String regex){
+        this.regex = regex;
     }
+    /**
+     * Мтод возвращает строковое представление регулярного выражения
+     * @return
+     */
     public String get(){
-        return code;
+        return regex;
     }
     
 }

@@ -2,8 +2,19 @@ package ru.molokoin.j120.lab01.task1.vers03;
 
 import java.util.Arrays;
 
+/**
+ * Класс хранит данные о коде региона, составляющем первую секцию полного номера тлефона,<p>
+ * и предоставляет методы, для обработки данных о коде региона.<p>
+ * Класс реализует интерфейс IPart, прдусматривающий основные методы,<p>
+ * для работы с секциями полного номера телефона
+ */
 public class Code implements IPart{
     private int[] value;
+    /**
+     * Основной конструктор класса,<p>
+     * создающий объекты класса на основании строкового представления кода региона
+     * @param string
+     */
     public Code(String string){
         setValue(IPart.ofString(string));
     }
@@ -19,7 +30,7 @@ public class Code implements IPart{
     }
 
     /**
-     * Метод преобразует int[] в строку
+     * Метод преобразует поле int[] value в строку
      */
     @Override
     public String toString(){
