@@ -7,8 +7,8 @@ import java.util.Iterator;
  * @param <T>
  */
 public class SimplyGenericList<T> implements Iterable<T> {
-    private Node head;
-    private Node tail;
+    private Node<T> head;
+    private Node<T> tail;
     Class<?> clazz;//для определения класса, с которым пользователь использует список
 
     public SimplyGenericList(Class<?> clazz){
@@ -17,25 +17,25 @@ public class SimplyGenericList<T> implements Iterable<T> {
     /**
      * @return the head
      */
-    public Node getHead() {
+    public Node<T> getHead() {
         return head;
     }
     /**
      * @param head the head to set
      */
-    public void setHead(Node head) {
+    public void setHead(Node<T> head) {
         this.head = head;
     }
     /**
      * @return the tail
      */
-    public Node getTail() {
+    public Node<T> getTail() {
         return tail;
     }
     /**
      * @param tail the tail to set
      */
-    public void setTail(Node tail) {
+    public void setTail(Node<T> tail) {
         this.tail = tail;
     }
     /**
@@ -44,12 +44,12 @@ public class SimplyGenericList<T> implements Iterable<T> {
      */
     public void addFirst(T data){
         if(head == null){
-            head = new Node();
-            head.data = data;
+            head = new Node<T>();
+            head.data = (T)data;
             tail = head;
         }else{
-            Node tmp = new Node();
-            tmp.data = data;
+            Node<T> tmp = new Node<T>();
+            tmp.data = (T)data;
             tmp.next = head;
             head = tmp;
         }
@@ -59,10 +59,10 @@ public class SimplyGenericList<T> implements Iterable<T> {
      */
     public void addLast(T data){
         if(head == null){
-            addFirst(data);
+            addFirst((T)data);
         }else{
-            Node tmp = new Node();
-            tmp.data = data;
+            Node<T> tmp = new Node<T>();
+            tmp.data = (T)data;
             tail.next = tmp;
             tail = tmp;
         }
@@ -75,7 +75,7 @@ public class SimplyGenericList<T> implements Iterable<T> {
      */
     public T executeHead(){
         T tmp = null;
-        tmp = head.data;
+        tmp = (T)head.data;
         head = head.next;
         return tmp;
     }
@@ -84,8 +84,8 @@ public class SimplyGenericList<T> implements Iterable<T> {
      * @return
      */
     public T executeTail(){
-        T tmp = tail.data;//готовы писать данные удаляемого элемента
-        Node bufNode = head;
+        T tmp = (T)tail.data;//готовы писать данные удаляемого элемента
+        Node<T> bufNode = head;
         //у предпоследнего элемента удаляем ссылку на tail
         while (bufNode.next != tail){
             bufNode = bufNode.next;
@@ -107,7 +107,7 @@ public class SimplyGenericList<T> implements Iterable<T> {
      * вывод в консоль всех элементов списка, по порядку
      */
     public void printAll(){
-        Node temp = head;
+        Node<T> temp = head;
         while (temp != null){
             printNode(temp);
             temp = temp.next;
@@ -117,47 +117,58 @@ public class SimplyGenericList<T> implements Iterable<T> {
      * Вывод в консоль данных указанной ноды
      * @param node
      */
-    public void printNode(Node node){
+    public void printNode(Node<T> node){
         if (node == null){
             System.out.println(">>> " + null);
 
         }else{
-            System.out.println(">>> " + node.data);
+            System.out.println(">>> " + (T)node.data);
         }
     }
     public void deleteNodeByValue(T value){
         //обработка случая, когда первый элемент списка подлежит удалению
-        while (head.data == value){
+        while (head.data == (T)value){
             head = head.next;
         }
         //первый элемент списка точно не подлежит удалению
-        Node buf = new Node();
+        Node<T> buf = new Node<T>();
         buf = head;
         while(buf.next != null){
-            if (buf.next.data != value){
+            if (buf.next.data != (T)value){
                 buf = buf.next;
             }else{
                 buf.next = buf.next.next;
             }
         }
     }
-    // public void math(UseMath use, T value){
-    //     switch (use){
-    //         case INCREASE : {
-    //             Node buf = head;
-    //             buf.data = buf.data + value;
-    //             System.out.println("buf.data" + buf.data);
-    //             while (buf.next != null){
-    //                 buf.next.data = buf.next.data + value;
-    //                 System.out.println("buf.data" + buf.next.data);
-    //                 buf = buf.next;
-    //             }
-    //             break;
-    //         }
-    //         case DECREASE : {
-    //         }
-    //     }
-    // }
+    /**
+     * не понятно почему не работает,
+     * оператор "+" не предусмотрен для объектов класса Т
+     * как предусмотреть ???
+     * @param use
+     * @param value
+     */
+    public void math(UseMath use, T value){
+        // try{
+        //     switch (use){
+        //         case INCREASE : {
+        //             Node<T> buf = head;
+        //             buf.data = (T)buf.data + (T)value;
+        //             System.out.println("buf.data" + buf.data);
+        //             while (buf.next != null){
+        //                 buf.next.data = (T)buf.next.data + (T)value;
+        //                 System.out.println("buf.data" + (T)buf.next.data);
+        //                 buf = buf.next;
+        //             }
+        //             break;
+        //         }
+        //         case DECREASE : {
+        //         }
+        //     }
+        // }catch(Exception e){
+        //     System.out.println(e.getMessage());
+        // }
+    }
     @Override
     public Iterator<T> iterator(){
         return new SimplyGenericListIterator<T>(this);
@@ -165,7 +176,7 @@ public class SimplyGenericList<T> implements Iterable<T> {
     }
     public int size() {
         int index = 1;
-        Node current = head;
+        Node<T> current = head;
         while (current.next != null){
             current = current.next;
             index++;
@@ -176,10 +187,8 @@ public class SimplyGenericList<T> implements Iterable<T> {
     /**
      * Класс, объекты которого являются элементами списка (узлы / ноды / node) в которых хранятся основные данные и ссылка на следующий элемент списка. 
      */
-    public class Node{
+    public class Node<T>{
         T data;
-        Node next;
+        Node<T> next;
     }
-
-    
 }

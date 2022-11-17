@@ -2,8 +2,6 @@ package ru.molokoin.j120.lab01.task2.vers01.generics;
 
 import java.util.Iterator;
 
-import ru.molokoin.j120.lab01.task2.vers01.generics.SimplyGenericList.Node;
-
 public class SimplyGenericListIterator<T> implements Iterator<T> {
     private final SimplyGenericList<T> currentList;
     private int index;
@@ -29,8 +27,8 @@ public class SimplyGenericListIterator<T> implements Iterator<T> {
             return currentList.getHead().data;
         }
         //обрабатываем остальные значения, пока не дойдем до поля индекс
-        SimplyGenericList<T>.Node head = currentList.getHead();
-        SimplyGenericList<T>.Node current = head;
+        SimplyGenericList<T>.Node<T> head = currentList.getHead();
+        SimplyGenericList<T>.Node<T> current = head;
         while(i != (index)){
             current = current.next;
             i++;
