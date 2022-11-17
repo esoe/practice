@@ -21,12 +21,14 @@ public class SimplyGenericListIterator<T> implements Iterator<T> {
 
     @Override
     public T next() {
+        //обрабатываем нулевое поле - head, которое установлено в конструкторе
         int i = 0;
         if (index == 0){
             index++;
             i++;
             return currentList.getHead().data;
         }
+        //обрабатываем остальные значения, пока не дойдем до поля индекс
         SimplyGenericList<T>.Node head = currentList.getHead();
         SimplyGenericList<T>.Node current = head;
         while(i != (index)){

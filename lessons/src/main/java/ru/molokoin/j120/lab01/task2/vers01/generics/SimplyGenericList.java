@@ -5,7 +5,6 @@ import java.util.Iterator;
 /**
  * Класс содержащий инструменты управления списком и данными в нем
  * @param <T>
- * @param <T>
  */
 public class SimplyGenericList<T> implements Iterable<T> {
     private Node head;
