@@ -229,6 +229,9 @@ public class Phone{
         System.out.println(listSet);
         System.out.println("-------------------------------");
 
+        //проверка equals
+        System.out.println("phone01.equals(null)" + phone01.equals(null));
+        System.out.println("phone01.equals(phone01)" + phone01.equals(phone01));
         System.out.println("phone01.equals(phone02)" + phone01.equals(phone02));
         System.out.println("phone01.equals(phone03)" + phone01.equals(phone03));
 
