@@ -79,6 +79,15 @@ public class Phone{
          * со значениями одноименных полей переданного в метод объекта
          */
         if ((this.code.getValue() == phone.code.getValue())&&(this.number.getValue() == phone.number.getValue())) return true;
+        int i = 0;
+        boolean bool = true;
+        while(i < Phone.toIntArray(this).length){
+            if(Phone.toIntArray(this)[i] != Phone.toIntArray(phone)[i]){
+                bool = false;
+            }
+            i++;
+        }
+        if(bool)return true;
         return false;
     }
     /**
@@ -175,7 +184,7 @@ public class Phone{
         //исходные номера телефонов
         System.out.println("Исходные номера телефонов: ");
         phone01 = new Phone("(812)337-33-13");
-        phone02 = new Phone("(8123)12-34-45");
+        //phone02 = new Phone("(8123)12-34-45");
         Phone phone03 = new Phone("(999)98-87-76");
         phone01.print();
         phone02.print();
