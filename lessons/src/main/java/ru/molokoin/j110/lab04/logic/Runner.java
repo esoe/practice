@@ -1,4 +1,4 @@
-package ru.molokoin.logic;
+package ru.molokoin.j110.lab04.logic;
 
 public class Runner {
     public static void main(String[] args) {

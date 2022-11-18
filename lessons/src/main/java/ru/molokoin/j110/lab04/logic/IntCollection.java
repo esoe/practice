@@ -1,4 +1,4 @@
-package ru.molokoin.logic;
+package ru.molokoin.j110.lab04.logic;
 
 /**
  * Реализация интерфейса булевого массива
