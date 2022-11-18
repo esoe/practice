@@ -1,8 +1,9 @@
 package ru.molokoin.j120.lab01.task5;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class DoublyGenericList <T> {
+public class DoublyGenericList <T> implements Iterable<T>{
     private Node<T> head = null;
     private Node<T> tail = null;
 
@@ -249,6 +250,28 @@ public class DoublyGenericList <T> {
         this.tail = tail;
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        // TODO Auto-generated method stub
+        return new GenericIterator<T>();
+    }
+    private static class GenericIterator<T> implements Iterator{
+        Node<T> first;
+        Node <T> last;
+
+        @Override
+        public boolean hasNext() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public T next() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+    }
     /**
      * Вложенный класс, описывает узел двусвязного списка
      */
@@ -257,5 +280,7 @@ public class DoublyGenericList <T> {
         Node<T> forvard;
         Node<T> backvard;
     }
+
+    
     
 }
