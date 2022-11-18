@@ -169,25 +169,38 @@ public class SimplyGenericList<T> implements Iterable<T> {
      */
 
     public void math(UseMath use, T value){
-        // try{
-        //     switch (use){
-        //         case INCREASE : {
-        //             Node buf = head;
-        //             buf.data = buf.data + value;
-        //             System.out.println("buf.data " + buf.data);
-        //             while (buf.next != null){
-        //                 buf.next.data = (T)buf.next.data + (T)value;
-        //                 System.out.println("buf.data " + buf.next.data);
-        //                 buf = buf.next;
-        //             }
-        //             break;
-        //         }
-        //         case DECREASE : {
-        //         }
-        //     }
-        // }catch(Exception e){
-        //     System.out.println(e.getMessage());
-        // }
+        try{
+            switch (use){
+                case INCREASE : {
+                    Node<T> buf = head;
+                    if (buf.data instanceof Number){
+                        Integer mid = buf.toInteger() + (Integer)value;
+                        System.out.println("(Integer)mid :" + mid);
+                        buf.data = (T)mid;
+                        while (buf.next != null){
+                            mid = buf.next.toInteger() + (Integer)value;
+                            buf.next.data = (T)mid;
+                            buf = buf.next;
+                        }
+                    }
+                    if (buf.data instanceof String){
+                        String mid = buf.toString() + (String)value;
+                        System.out.println("(String)mid :" + mid);
+                        buf.data = (T)mid;
+                        while (buf.next != null){
+                            mid = buf.next.toString() + (String)value;
+                            buf.next.data = (T)mid;
+                            buf = buf.next;
+                        }
+                    }
+                    break;
+                }
+                case DECREASE : {
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     /**
      * Метод интерфейса Iterable, рализует функционирование итератора,
@@ -212,8 +225,23 @@ public class SimplyGenericList<T> implements Iterable<T> {
      * не понятно, почему создаются объекты, если класс статический ...
      */
     public static class Node<T>{
-        T data;
-        Node next;
+        private T data;
+        private Node<T> next;
+
+        public Integer toInteger(){
+            if (data instanceof Integer){
+                return (Integer)data;
+            }else{
+                throw new IllegalArgumentException("IllegalArgumentException: даные не относятся к типу Integer");
+            }
+        }
+        public String toString(){
+            if (data instanceof String){
+                return (String)data;
+            }else{
+                throw new IllegalArgumentException("IllegalArgumentException: даные не относятся к типу String");
+            }
+        }
     }
 
     /**
@@ -222,13 +250,13 @@ public class SimplyGenericList<T> implements Iterable<T> {
      * !! скопировал рализацию с практики, на много проще моей получилась .. 
      */
     public static class SimplyGenericListIterator<T> implements Iterator<T> {
-        Node nextNode;
+        Node<T> nextNode;
 
         /**
          * Конструктор итератора, передаем в него головную ноду.
          * @param nextNode
          */
-        public SimplyGenericListIterator(Node nextNode) {
+        public SimplyGenericListIterator(Node<T> nextNode) {
             this.nextNode = nextNode;
         }
         @Override
