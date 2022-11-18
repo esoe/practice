@@ -169,25 +169,25 @@ public class SimplyGenericList<T> implements Iterable<T> {
      */
 
     public void math(UseMath use, T value){
-        try{
-            switch (use){
-                case INCREASE : {
-                    Node<T> buf = head;
-                    buf.data = buf.data + value;
-                    System.out.println("buf.data " + buf.data);
-                    while (buf.next != null){
-                        buf.next.data = (T)buf.next.data + (T)value;
-                        System.out.println("buf.data " + buf.next.data);
-                        buf = buf.next;
-                    }
-                    break;
-                }
-                case DECREASE : {
-                }
-            }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+        // try{
+        //     switch (use){
+        //         case INCREASE : {
+        //             Node buf = head;
+        //             buf.data = buf.data + value;
+        //             System.out.println("buf.data " + buf.data);
+        //             while (buf.next != null){
+        //                 buf.next.data = (T)buf.next.data + (T)value;
+        //                 System.out.println("buf.data " + buf.next.data);
+        //                 buf = buf.next;
+        //             }
+        //             break;
+        //         }
+        //         case DECREASE : {
+        //         }
+        //     }
+        // }catch(Exception e){
+        //     System.out.println(e.getMessage());
+        // }
     }
     /**
      * Метод интерфейса Iterable, рализует функционирование итератора,
@@ -195,7 +195,7 @@ public class SimplyGenericList<T> implements Iterable<T> {
      */
     @Override
     public Iterator<T> iterator(){
-        return new SimplyGenericListIterator<T>(this);
+        return new SimplyGenericListIterator<T>(head);
     }
     public int size() {
         int index = 1;
@@ -209,9 +209,39 @@ public class SimplyGenericList<T> implements Iterable<T> {
 
     /**
      * Класс, объекты которого являются элементами списка (узлы / ноды / node) в которых хранятся основные данные и ссылка на следующий элемент списка. 
+     * не понятно, почему создаются объекты, если класс статический ...
      */
-    public class Node<T>{
+    public static class Node<T>{
         T data;
-        Node<T> next;
+        Node next;
     }
+
+    /**
+     * Класс, устанавливающий методы рализации интерфейса Iterator,
+     * устанавливает методы, испльзуемые при реализации метода iterator() интерфейса Iterable
+     * !! скопировал рализацию с практики, на много проще моей получилась .. 
+     */
+    public static class SimplyGenericListIterator<T> implements Iterator<T> {
+        Node nextNode;
+
+        /**
+         * Конструктор итератора, передаем в него головную ноду.
+         * @param nextNode
+         */
+        public SimplyGenericListIterator(Node nextNode) {
+            this.nextNode = nextNode;
+        }
+        @Override
+        public boolean hasNext() {
+            if(nextNode!=null) return true;
+            return false;
+        }
+        @Override
+        public T next() {
+            T value = (T)nextNode.data;
+            nextNode = nextNode.next;
+            return value;
+        }
+    }
+
 }
