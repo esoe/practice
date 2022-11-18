@@ -172,7 +172,6 @@ public class SimplyGenericList<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator(){
         return new SimplyGenericListIterator<T>(this);
-
     }
     public int size() {
         int index = 1;

@@ -2,6 +2,10 @@ package ru.molokoin.j120.lab01.task2.vers01.generics;
 
 import java.util.Iterator;
 
+/**
+ * Класс, устанавливающий методы рализации интерфейса Iterator,
+ * устанавливает методы, испльзуемые при реализации метода iterator() интерфейса Iterable
+ */
 public class SimplyGenericListIterator<T> implements Iterator<T> {
     private final SimplyGenericList<T> currentList;
     private int index;
