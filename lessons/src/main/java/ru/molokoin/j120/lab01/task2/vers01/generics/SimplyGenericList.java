@@ -167,26 +167,27 @@ public class SimplyGenericList<T> implements Iterable<T> {
      * @param use
      * @param value
      */
+
     public void math(UseMath use, T value){
-        // try{
-        //     switch (use){
-        //         case INCREASE : {
-        //             Node<T> buf = head;
-        //             buf.data = (T)buf.data + (T)value;
-        //             System.out.println("buf.data" + buf.data);
-        //             while (buf.next != null){
-        //                 buf.next.data = (T)buf.next.data + (T)value;
-        //                 System.out.println("buf.data" + (T)buf.next.data);
-        //                 buf = buf.next;
-        //             }
-        //             break;
-        //         }
-        //         case DECREASE : {
-        //         }
-        //     }
-        // }catch(Exception e){
-        //     System.out.println(e.getMessage());
-        // }
+        try{
+            switch (use){
+                case INCREASE : {
+                    Node<T> buf = head;
+                    buf.data = buf.data + value;
+                    System.out.println("buf.data " + buf.data);
+                    while (buf.next != null){
+                        buf.next.data = (T)buf.next.data + (T)value;
+                        System.out.println("buf.data " + buf.next.data);
+                        buf = buf.next;
+                    }
+                    break;
+                }
+                case DECREASE : {
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     /**
      * Метод интерфейса Iterable, рализует функционирование итератора,

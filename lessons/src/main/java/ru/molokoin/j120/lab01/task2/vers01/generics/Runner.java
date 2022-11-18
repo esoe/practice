@@ -5,7 +5,7 @@ public class Runner {
         System.out.println("Запущен поток: " + Thread.currentThread().getName());
         //Создание списка Integer
         System.out.println("Создание списка Integer ... ");
-        SimplyGenericList<Integer> listInteger = new SimplyGenericList<>(Integer.class);
+        SimplyGenericList<Integer> listInteger = new SimplyGenericList<Integer>(Integer.class);
         System.out.println(listInteger.clazz);
 
         //добавление элементов в список
@@ -61,7 +61,7 @@ public class Runner {
         System.out.println("----------------------------------");
         //Создание списка String
         System.out.println("Создание списка String ... ");
-        SimplyGenericList<String> listString = new SimplyGenericList<>(String.class);
+        SimplyGenericList<String> listString = new SimplyGenericList<String>(String.class);
         System.out.println(listString.clazz);
 
         //добавление элементов в список
