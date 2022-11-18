@@ -171,31 +171,53 @@ public class SimplyGenericList<T> implements Iterable<T> {
     public void math(UseMath use, T value){
         try{
             switch (use){
+                case SUM :{
+                    Node<T> buf = head;
+                    if (buf.data instanceof String){
+                        String mid = buf.toString();
+                        while (buf.next != null){
+                            mid = "" +mid + buf.next.toString();
+                            buf = buf.next;
+                        }
+                        System.out.println("SUM-String: " + mid);
+                    }
+                    if (buf.data instanceof Integer){
+                        Integer mid = buf.toInteger();
+                        while (buf.next != null){
+                            mid = mid + buf.next.toInteger();
+                            buf = buf.next;
+                        }
+                        System.out.println("SUM-INTEGER: " + mid);
+                    }
+                    
+                    break;
+                }
                 case INCREASE : {
                     Node<T> buf = head;
                     if (buf.data instanceof Number){
-                        Integer mid = buf.toInteger() + (Integer)value;
-                        System.out.println("(Integer)mid :" + mid);
-                        buf.data = (T)mid;
+                        Integer midl = buf.toInteger() + (Integer)value;
+                        System.out.println("(Integer)mid :" + midl);
+                        buf.data = (T)midl;
                         while (buf.next != null){
-                            mid = buf.next.toInteger() + (Integer)value;
-                            buf.next.data = (T)mid;
+                            midl = buf.next.toInteger() + (Integer)value;
+                            buf.next.data = (T)midl;
                             buf = buf.next;
                         }
                     }
                     if (buf.data instanceof String){
-                        String mid = buf.toString() + (String)value;
-                        System.out.println("(String)mid :" + mid);
-                        buf.data = (T)mid;
+                        String midl = buf.toString() + (String)value;
+                        System.out.println("(String)mid :" + midl);
+                        buf.data = (T)midl;
                         while (buf.next != null){
-                            mid = buf.next.toString() + (String)value;
-                            buf.next.data = (T)mid;
+                            midl = buf.next.toString() + (String)value;
+                            buf.next.data = (T)midl;
                             buf = buf.next;
                         }
                     }
                     break;
                 }
                 case DECREASE : {
+                    break;
                 }
             }
         }catch(Exception e){

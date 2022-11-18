@@ -57,6 +57,12 @@ public class Runner {
         for (Integer in : listInteger) {
             System.out.println(in);
         }
+        //агрегирование - суммируем элементы списка
+        System.out.println("действия над всеми элементами списка ... " + UseMath.SUM);
+        listInteger.math(UseMath.SUM, 0);
+        
+
+        
         System.out.println("----------------------------------");
         System.out.println("----------------------------------");
         //Создание списка String
@@ -66,14 +72,14 @@ public class Runner {
 
         //добавление элементов в список
         System.out.println("Добавление данных в список ... ");
-        listString.addFirst("23");
-        listString.addLast("47");
-        listString.addFirst("21");
-        listString.addLast("50");
-        listString.addFirst("18");
-        listString.addLast("53");
-        listString.addFirst("12");
-        listString.addLast("64");
+        listString.addFirst("aa");
+        listString.addLast("bb");
+        listString.addFirst("cc");
+        listString.addLast("dd");
+        listString.addFirst("ee");
+        listString.addLast("ff");
+        listString.addFirst("gg");
+        listString.addLast("dd");
 
         //вывод в консоль всех элементов списка
         System.out.println("Вывод в консоль всех элементов списка ... ");
@@ -113,6 +119,9 @@ public class Runner {
         for (String st : listString) {
             System.out.println(st);
         }
+         //агрегирование - суммируем элементы списка
+         System.out.println("действия над всеми элементами списка ... " + UseMath.SUM);
+         listString.math(UseMath.SUM, "");
 
 
     }
