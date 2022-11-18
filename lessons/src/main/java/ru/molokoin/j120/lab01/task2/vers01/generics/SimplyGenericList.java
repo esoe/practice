@@ -174,15 +174,32 @@ public class SimplyGenericList<T> implements Iterable<T> {
                 case SUM :{
                     Node<T> buf = head;
                     if (buf.data instanceof String){
-                        String mid = buf.toString();
+                        /**
+                         * работает быстрее, потомучто под капотом static поля,<p>
+                         * обработка идет в  стеке
+                         */
+                        StringBuilder mid = new StringBuilder(buf.toString());
                         while (buf.next != null){
-                            mid = "" +mid + buf.next.toString();
+                            mid =  mid.append(buf.next.toString())  ;
                             buf = buf.next;
                         }
                         System.out.println("SUM-String: " + mid);
                     }
+                    /**
+                     * тоже работает
+                     */
+                    // if (buf.data instanceof String){
+                    //     String mid = buf.toString();
+                    //     while (buf.next != null){
+                    //         mid = "" +mid + buf.next.toString();
+                    //         buf = buf.next;
+                    //     }
+                    //     System.out.println("SUM-String: " + mid);
+                    // }
+
+                    //по той же причине mid объявлен как int
                     if (buf.data instanceof Integer){
-                        Integer mid = buf.toInteger();
+                        int mid = buf.toInteger();
                         while (buf.next != null){
                             mid = mid + buf.next.toInteger();
                             buf = buf.next;
