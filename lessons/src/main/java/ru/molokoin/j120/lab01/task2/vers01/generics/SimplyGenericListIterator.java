@@ -10,17 +10,26 @@ public class SimplyGenericListIterator<T> implements Iterator<T> {
     private final SimplyGenericList<T> currentList;
     private int index;
 
+    /**
+     * Конструктор итератора, принимающий в качестве параметра список, для перебора
+     * @param currentList
+     */
     SimplyGenericListIterator(SimplyGenericList<T> currentList){
         this.currentList = currentList;
         index = 0;
     }
 
-
+    /**
+     * Определяет наличие следующего значения в списке, при переборе списка
+     */
     @Override
     public boolean hasNext() {
         return index < currentList.size();
     }
 
+    /**
+     * Метод возвращает следующее значение, при переборе списка
+     */
     @Override
     public T next() {
         //обрабатываем нулевое поле - head, которое установлено в конструкторе
