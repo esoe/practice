@@ -1,8 +1,0 @@
-@startuml useCase-SimplyList
-left to right direction
-actor "main program" as program
-rectangle "SimplyList"{
-    
-}
-
-@enduml
