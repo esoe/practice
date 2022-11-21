@@ -11,7 +11,7 @@ public class DoublyGenericList <T> implements Iterable<T>{
      * метод проверяет пустой ли список и в случае,
      * если в списке нет узла head, возвращает true.
      * Если узел head есть, но в нем отсудствую данные, также возвращается true.
-     * @return
+     * @return true, если список пуст
      */
     public boolean isEmpty(){
         boolean isEmpty = false;
@@ -249,26 +249,43 @@ public class DoublyGenericList <T> implements Iterable<T>{
     public void setTail(Node<T> tail) {
         this.tail = tail;
     }
+    
+    /**
+     * метод возвращает список,<p>
+     * в котором элеметы расположены в обратной опследовательности
+     * @return
+     */
+    public DoublyGenericList<T> reverce(){
+        return null;
+    }
 
+    /**
+     * метод, осуществляющий перебр элементов списка<p>
+     * используется циклом foreach, или при прочих способах перебора списка
+     */
     @Override
     public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        return new GenericIterator<T>();
+        return new GenericIterator<T>(head);
     }
-    private static class GenericIterator<T> implements Iterator{
-        Node<T> first;
-        Node <T> last;
+    private static class GenericIterator<T> implements Iterator<T>{
+        Node<T> next;
+
+        GenericIterator(Node<T> next){
+            this.next = next;
+        }
+        
 
         @Override
         public boolean hasNext() {
-            // TODO Auto-generated method stub
+            if(next!=null) return true;
             return false;
         }
 
         @Override
         public T next() {
-            // TODO Auto-generated method stub
-            return null;
+            T value = (T)next.data;
+            next = next.forvard;
+            return value;
         }
 
     }
