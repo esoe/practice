@@ -3,7 +3,7 @@ package ru.molokoin.j120.lab01.task5;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class DoublyGenericList <T> implements Iterable<T>{
+public class DoublyGenericList <T> implements Iterable<T>, Cloneable{
     private Node<T> head = null;
     private Node<T> tail = null;
 
@@ -252,13 +252,32 @@ public class DoublyGenericList <T> implements Iterable<T>{
     
     /**
      * метод возвращает список,<p>
-     * в котором элеметы расположены в обратной опследовательности
+     * в котором элеметы расположены в обратной последовательности
+     * !!! новый, а не тот же список!!!
+     * надо тот-же
      * @return
      */
     public DoublyGenericList<T> reverce(){
-        return null;
+        DoublyGenericList<T> reverce = new DoublyGenericList<>();
+        for (T t : this) {
+            reverce.addFirst(t);
+        }
+        return reverce;
     }
 
+    /**
+     * Возвращает количество звеньев в текущем списке
+     * @return
+     */
+    private int size() {
+        Node<T> next = head;
+        int i = 0;
+        while (next.forvard != null){
+            i++;
+            next = next.forvard;
+        }
+        return i + 1;
+    }
     /**
      * метод, осуществляющий перебр элементов списка<p>
      * используется циклом foreach, или при прочих способах перебора списка
@@ -267,27 +286,65 @@ public class DoublyGenericList <T> implements Iterable<T>{
     public Iterator<T> iterator() {
         return new GenericIterator<T>(head);
     }
+    /**
+     * Клонируем список
+     * @param source
+     * @return
+     */
+    public DoublyGenericList<T> clone(DoublyGenericList<T> source){
+        DoublyGenericList<T> target  = new DoublyGenericList<>();
+        for (T t : source) {
+            target.addLast(t);
+        }
+        return target;
+    }
+    /**
+     * добавляем value  к каждому значению в списке
+     * работает с integer или string
+     * @param value
+     */
+    public void increase(T value){
+        Node<T> buf = head;
+        if (buf.data instanceof Number){
+            Integer midl = buf.toInteger() + (Integer)value;
+            System.out.println("(Integer)mid :" + midl);
+            buf.data = (T)midl;
+            while (buf.forvard != null){
+                midl = buf.forvard.toInteger() + (Integer)value;
+                buf.forvard.data = (T)midl;
+                buf = buf.forvard;
+            }
+        }
+        if (buf.data instanceof String){
+            String midl = buf.toString() + (String)value;
+            System.out.println("(String)mid :" + midl);
+            buf.data = (T)midl;
+            while (buf.forvard != null){
+                midl = buf.forvard.toString() + (String)value;
+                buf.forvard.data = (T)midl;
+                buf = buf.forvard;
+            }
+        }
+    }
+    /**
+     * Методы итератора списка
+     */
     private static class GenericIterator<T> implements Iterator<T>{
         Node<T> next;
-
         GenericIterator(Node<T> next){
             this.next = next;
         }
-        
-
         @Override
         public boolean hasNext() {
             if(next!=null) return true;
             return false;
         }
-
         @Override
         public T next() {
             T value = (T)next.data;
             next = next.forvard;
             return value;
         }
-
     }
     /**
      * Вложенный класс, описывает узел двусвязного списка
@@ -296,8 +353,20 @@ public class DoublyGenericList <T> implements Iterable<T>{
         T data;
         Node<T> forvard;
         Node<T> backvard;
-    }
 
-    
-    
+        public Integer toInteger(){
+            if (data instanceof Integer){
+                return (Integer)data;
+            }else{
+                throw new IllegalArgumentException("IllegalArgumentException: даные не относятся к типу Integer");
+            }
+        }
+        public String toString(){
+            if (data instanceof String){
+                return (String)data;
+            }else{
+                throw new IllegalArgumentException("IllegalArgumentException: даные не относятся к типу String");
+            }
+        }
+    }
 }
