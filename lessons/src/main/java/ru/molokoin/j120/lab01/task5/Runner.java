@@ -1,6 +1,5 @@
 package ru.molokoin.j120.lab01.task5;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Runner {
@@ -27,7 +26,7 @@ public class Runner {
         }
         //клонируем список
         System.out.println("клонируем список ...");
-        DoublyGenericList<Integer> listIntegerClone = listInteger.clone(listInteger);
+        DoublyGenericList<Integer> listIntegerClone = listInteger.clone();
         listIntegerClone.addLast(700);
         listIntegerClone.addLast(800);
         listIntegerClone.addLast(900);
@@ -53,22 +52,34 @@ public class Runner {
         /**
          * добавим данных к строковым значениям
          */
+        System.out.println("--------------------------------------");
+        System.out.println("Добавление данных к строковому массиву ...");
         //исходные данные в массиве
         String[] arr = {"one", "two", "three", "four", "five"};
+        System.out.println(Arrays.toString(arr));
         //создали новый список
         DoublyGenericList<String> listString = new DoublyGenericList<String>();
         //занесли данные массива в список
         listString.arrayToHead(arr);
-        //добавили smth в обратной последовательности
+        //получаем список, в обратном порядке
+        DoublyGenericList<String> listStringReverce = listString.reverce();
+        
+        //добавили smth в основной список
         listString.increase(" + smth");
-        System.out.println("listString.reverce().increase(smth);");
+        System.out.println("listString.increase(smth);");
         listString.printForvard();
 
-        
+        //добавили smth в перевернутый список
+        listStringReverce.increase(" + smth-else");
+        System.out.println("listStringReverce.increase(smth-else);");
+        listStringReverce.printForvard();
+        /**
+         * агрегирование (суммируем элементы списка)
+         */
+        System.out.println("Агрегированное значение sum(listString): " + listString.agregate());
+        System.out.println("Агрегированное значение sum(listString.reverce()): " + listString.reverce().agregate());
+        System.out.println("Агрегированное значение sum(listInteger): " + listInteger.agregate());
 
-         /**
-          * агрегирование (суммируем элементы списка)
-          */
 
     }
 }

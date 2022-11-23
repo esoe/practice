@@ -253,8 +253,12 @@ public class DoublyGenericList <T> implements Iterable<T>, Cloneable{
     /**
      * метод возвращает список,<p>
      * в котором элеметы расположены в обратной последовательности
-     * !!! новый, а не тот же список!!!
-     * надо тот-же
+     * TODO метод может возвращать  void, а в теле еще одним циклом переписывать текущий список.<p>
+     * хотя и сейчас можно текущему списку присвоить преобразованный список.
+     * list = list.reverce();
+     * .. в общем шило на мыло, меняется только способ использования метода.
+     * рально в reverce() обращаться к объектам исходного списка только при клонировании элементов списка,
+     * но сам список при этом всеровно окажется новым экземпляром.
      * @return
      */
     public DoublyGenericList<T> reverce(){
@@ -287,17 +291,35 @@ public class DoublyGenericList <T> implements Iterable<T>, Cloneable{
         return new GenericIterator<T>(head);
     }
     /**
-     * Клонируем список
+     * Клонируем список, без использования метода клонирования
+     * по сути создаем новый список и копируем в него данные.
      * @param source
      * @return
      */
-    public DoublyGenericList<T> clone(DoublyGenericList<T> source){
+    public DoublyGenericList<T> clone(){
         DoublyGenericList<T> target  = new DoublyGenericList<>();
-        for (T t : source) {
-            target.addLast(t);
+        for (T t : this) {
+            target.addLast((T)t);
         }
         return target;
     }
+
+    /**
+     * клонирование списка
+     * можно доработать, если клонировать node.data,<p>
+     * в остальных случаях будут клонироваться ссылки на объекты исходного списка
+     * в таком варианте можно осуществить реверс списка, который будет ссылаться на те же объекты
+     */
+    // public DoublyGenericList<T> clone(){
+    //     try{
+    //         return (DoublyGenericList<T>)super.clone();//возвращает новый список со ссылка ми на старые объекты
+    //     }catch (CloneNotSupportedException e){
+    //         System.out.println("Ошибка: Клонирование не удалось...");
+    //         System.out.println("DoublyGenericList<T> clone() вернул ссылку на тот же объект.");
+    //         return this;
+    //     }
+    // }
+
     /**
      * добавляем value  к каждому значению в списке
      * работает с integer или string
@@ -307,7 +329,6 @@ public class DoublyGenericList <T> implements Iterable<T>, Cloneable{
         Node<T> buf = head;
         if (buf.data instanceof Number){
             Integer midl = buf.toInteger() + (Integer)value;
-            System.out.println("(Integer)mid :" + midl);
             buf.data = (T)midl;
             while (buf.forvard != null){
                 midl = buf.forvard.toInteger() + (Integer)value;
@@ -317,7 +338,6 @@ public class DoublyGenericList <T> implements Iterable<T>, Cloneable{
         }
         if (buf.data instanceof String){
             String midl = buf.toString() + (String)value;
-            System.out.println("(String)mid :" + midl);
             buf.data = (T)midl;
             while (buf.forvard != null){
                 midl = buf.forvard.toString() + (String)value;
@@ -325,6 +345,39 @@ public class DoublyGenericList <T> implements Iterable<T>, Cloneable{
                 buf = buf.forvard;
             }
         }
+    }
+    /**
+     * Агрегирование элементов списка
+     * метод возвращает сумму всех полей списка
+     * - для Integer полей
+     * - для String полей
+     * @param value
+     */
+    public T agregate() throws IllegalArgumentException{
+        /**
+         * обрабатываем значения Integer
+         */
+        Node<T> next = head;
+        if (next.data instanceof Number){
+            Integer sum = next.toInteger();//возвращает Integer data
+            while (next.forvard != null){
+                sum = (sum + next.forvard.toInteger());
+                next = next.forvard;
+            }
+            return (T)sum;
+        }
+        /**
+         * обрабатываем значения String
+         */
+        if (next.data instanceof String){
+            String sum = next.toString();
+            while (next.forvard != null){
+                sum = sum + next.forvard.toString();
+                next = next.forvard;
+            }
+            return (T)sum;
+        }
+        throw new IllegalArgumentException("В список передан недопустимый объект, не предусмаривающий возможность проведения операции суммирования ");
     }
     /**
      * Методы итератора списка
@@ -350,10 +403,14 @@ public class DoublyGenericList <T> implements Iterable<T>, Cloneable{
      * Вложенный класс, описывает узел двусвязного списка
      */
     private static class Node <T>{
-        T data;
-        Node<T> forvard;
-        Node<T> backvard;
+        T data;//данные ячейки списка
+        Node<T> forvard;//следующая ячейка списка
+        Node<T> backvard;//предыдущая ячейка списка
 
+        /**
+         * Возвращает данные узла типа Integer
+         * @return
+         */
         public Integer toInteger(){
             if (data instanceof Integer){
                 return (Integer)data;
@@ -361,6 +418,9 @@ public class DoublyGenericList <T> implements Iterable<T>, Cloneable{
                 throw new IllegalArgumentException("IllegalArgumentException: даные не относятся к типу Integer");
             }
         }
+        /**
+         * возвращает данные узла типа String
+         */
         public String toString(){
             if (data instanceof String){
                 return (String)data;
